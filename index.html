@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aromaticidad y Sustitución Electrofílica | Química Orgánica</title>
+<style>
+    :root {
+        --QOMed-gold: #D4AF37;
+        --QOMed-dark: #1a1a2e;
+        --QOMed-blue: #16213e;
+        --QOMed-light: #0f3460;
+        --accent: #e94560;
+        --text: #2c3e50;
+        --white: #ffffff;
+        --sand: #f4e9c1;
+        --shadow: rgba(0, 0, 0, 0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===== SANGRÍA DE VIÑETAS Y LISTAS ===== */
+    ul:not(.map-tree), ol {
+        padding-left: 2.4rem;
+        margin: 0.5rem 0 1rem;
+    }
+    ul:not(.map-tree) { list-style: none; }
+    ul:not(.map-tree) li, ol li { margin: 0.45rem 0; }
+
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    header { background: linear-gradient(135deg, var(--QOMed-dark) 0%, var(--QOMed-blue) 100%); color: var(--white); padding: 2rem; text-align: center; box-shadow: 0 6px 20px var(--shadow); position: relative; overflow: hidden; border-bottom: 5px solid var(--QOMed-gold); }
+    .logo-container { display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .logo-QOMed { width: 120px; height: auto; background: var(--white); border-radius: 50%; padding: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 3px 3px 6px rgba(0,0,0,0.3); color: var(--QOMed-gold); }
+    .subtitle { font-size: 1.2rem; opacity: 0.95; font-weight: 300; }
+    .nav-container { background: var(--QOMed-blue); padding: 1rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 12px var(--shadow); }
+    .nav-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.8rem; max-width: 1400px; margin: 0 auto; }
+    .nav-btn { background: var(--white); color: var(--QOMed-dark); border: none; padding: 0.8rem 1.5rem; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+    .nav-btn:hover, .nav-btn.active { background: var(--QOMed-gold); color: var(--QOMed-dark); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212,175,55,0.4); }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+    .section { display: none; animation: fadeIn 0.5s ease; }
+    .section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .card { background: var(--white); border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 8px 24px var(--shadow); border-left: 6px solid var(--QOMed-gold); transition: transform 0.3s ease; }
+    .card:hover { transform: translateY(-5px); }
+    h2 { color: var(--QOMed-blue); margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 3px solid var(--QOMed-gold); display: flex; align-items: center; gap: 0.8rem; font-size: 2rem; }
+    h3 { color: var(--QOMed-light); margin: 1.5rem 0 1rem; font-size: 1.5rem; }
+    .molecule-img { max-width: 100%; height: auto; border-radius: 12px; margin: 1rem 0; box-shadow: 0 4px 12px var(--shadow); }
+    .img-container { text-align: center; margin: 2rem 0; }
+    .calculator { background: linear-gradient(135deg, #fff9f5 0%, #fff0e8 100%); border: 3px solid var(--QOMed-gold); border-radius: 16px; padding: 2rem; margin: 2rem 0; }
+    .calc-title { color: var(--QOMed-blue); font-size: 1.6rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem; }
+    .calc-input-group { margin: 1rem 0; }
+    .calc-input-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--QOMed-dark); }
+    .calc-input-group input, .calc-input-group select { width: 100%; padding: 0.8rem; border: 2px solid var(--sand); border-radius: 8px; font-size: 1rem; transition: border-color 0.3s; }
+    .calc-input-group input:focus, .calc-input-group select:focus { outline: none; border-color: var(--QOMed-gold); }
+    .calc-button { background: var(--QOMed-blue); color: var(--white); border: none; padding: 1rem 2rem; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.3s ease; box-shadow: 0 4px 12px var(--shadow); }
+    .calc-button:hover { background: var(--QOMed-gold); color: var(--QOMed-dark); transform: translateY(-2px); }
+    .calc-result { background: var(--white); border-left: 5px solid var(--accent); padding: 1.5rem; margin-top: 1.5rem; border-radius: 8px; font-size: 1.1rem; display: none; }
+    .calc-result.show { display: block; animation: slideIn 0.5s ease; }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+    table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px var(--shadow); }
+    th { background: linear-gradient(135deg, var(--QOMed-blue) 0%, var(--QOMed-light) 100%); color: var(--white); padding: 1.2rem; text-align: left; font-weight: 600; }
+    td { padding: 1rem 1.2rem; border-bottom: 1px solid #eee; transition: background 0.3s; }
+    tr:hover td { background: #f8fff0; }
+    .info-box { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 5px solid #2196f3; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .tip-box { background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%); border-left: 5px solid #ffc107; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .bio-box { background: linear-gradient(135deg, #d1ecf1 0%, #a8dadc 100%); border-left: 5px solid #17a2b8; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .pharma-box { background: linear-gradient(135deg, #f8d7da 0%, #f1aeb5 100%); border-left: 5px solid #dc3545; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .problem-box { background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 5px solid #28a745; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    details.solution { margin-top: 1rem; background: #f8f9fa; border: 2px solid var(--QOMed-light); border-radius: 10px; padding: 0.8rem 1.2rem; }
+    details.solution summary { cursor: pointer; font-weight: 700; color: var(--QOMed-light); }
+    details.solution[open] summary { margin-bottom: 0.8rem; border-bottom: 1px dashed var(--QOMed-light); padding-bottom: .4rem; }
+    .mnemonic-card { background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%); border: 3px solid var(--accent); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; position: relative; overflow: hidden; }
+    .mnemonic-title { color: var(--accent); font-weight: 700; margin-bottom: 0.8rem; font-size: 1.2rem; }
+    .glossary-term { background: var(--white); border: 2px solid var(--QOMed-gold); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; cursor: pointer; transition: all 0.3s; }
+    .glossary-term:hover { background: #fff9e6; transform: translateX(5px); }
+    .glossary-definition { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--QOMed-gold); }
+    .glossary-definition.show { display: block; animation: fadeIn 0.3s ease; }
+    .error-card { background: linear-gradient(135deg, #ffe6e6 0%, #ffb3b3 100%); border-left: 5px solid #dc3545; padding: 1.5rem; margin: 1rem 0; border-radius: 0 12px 12px 0; }
+    .error-title { color: #dc3545; font-weight: 700; margin-bottom: 0.5rem; }
+    .correction { background: #d4edda; border-left: 3px solid #28a745; padding: 1rem; margin-top: 1rem; border-radius: 0 8px 8px 0; }
+    .quiz-container { background: linear-gradient(135deg, var(--QOMed-blue) 0%, var(--QOMed-light) 100%); color: var(--white); border-radius: 16px; padding: 2rem; margin: 2rem 0; }
+    .quiz-question { font-size: 1.4rem; margin-bottom: 1.5rem; font-weight: 600; }
+    .quiz-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    .quiz-option { background: var(--white); color: var(--text); border: 3px solid transparent; padding: 1.2rem; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; font-weight: 500; }
+    .quiz-option:hover:not(:disabled) { border-color: var(--QOMed-gold); transform: translateY(-3px); }
+    .quiz-option:disabled { cursor: not-allowed; opacity: 0.95; }
+    .quiz-option.correct { background: #4caf50; color: white; border-color: #2e7d32; }
+    .quiz-option.incorrect { background: #f44336; color: white; border-color: #c62828; }
+    .quiz-progress { max-width: 720px; margin: 0 auto 1rem; }
+    .quiz-progress-bar-bg { height: 10px; background: #e0e0e0; border-radius: 5px; overflow: hidden; }
+    .quiz-progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--QOMed-gold), var(--accent)); transition: width 0.4s; }
+    .quiz-stats { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
+    .quiz-stat { padding: 0.6rem 1.2rem; border-radius: 20px; font-weight: 700; color: #fff; font-size: 0.95rem; background: var(--QOMed-light); }
+    .footer { background: var(--QOMed-dark); color: var(--white); text-align: center; padding: 2.5rem; margin-top: 3rem; border-top: 5px solid var(--QOMed-gold); }
+    .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.5rem 0; border-radius: 12px; box-shadow: 0 4px 12px var(--shadow); }
+    .table-responsive table { min-width: 600px; width: 100%; margin: 0; }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tab { background: var(--sand); border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+    .tab.active { background: var(--QOMed-gold); color: var(--QOMed-dark); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+    .fc-stats { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
+    .fc-stat { padding: 0.6rem 1.2rem; border-radius: 20px; font-weight: 700; color: #fff; font-size: 0.95rem; }
+    .fc-stat.good { background: #28a745; } .fc-stat.bad { background: #dc3545; } .fc-stat.pending { background: #6c757d; } .fc-stat.total { background: var(--QOMed-light); }
+    .fc-progress { height: 10px; background: #e0e0e0; border-radius: 5px; overflow: hidden; max-width: 720px; margin: 0 auto 1.5rem; }
+    .fc-progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--QOMed-gold), var(--accent)); transition: width 0.4s; }
+    .flashcard-scene { perspective: 1400px; max-width: 720px; height: 320px; margin: 0 auto 1.5rem; }
+    .flashcard { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s; cursor: pointer; }
+    .flashcard.flipped { transform: rotateY(180deg); }
+    .fc-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 16px; padding: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: auto; box-shadow: 0 8px 24px var(--shadow); font-size: 1.15rem; }
+    .fc-front { background: linear-gradient(135deg, var(--QOMed-blue), var(--QOMed-light)); color: #fff; border: 3px solid var(--QOMed-gold); }
+    .fc-back { background: linear-gradient(135deg, #fff9e6, var(--sand)); color: var(--text); border: 3px solid var(--QOMed-gold); transform: rotateY(180deg); }
+    .fc-label { font-size: 0.85rem; letter-spacing: 2px; font-weight: 800; opacity: 0.8; margin-bottom: 1rem; }
+    .fc-hint { margin-top: 1rem; font-size: 0.85rem; opacity: 0.7; font-style: italic; }
+    .fc-controls { display: flex; gap: 1rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap; }
+    .fc-btn { border: none; padding: 0.9rem 2rem; border-radius: 30px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s; color: #fff; }
+    .fc-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .fc-btn.good { background: #28a745; } .fc-btn.bad { background: #dc3545; }
+    .fc-btn:not(:disabled):hover { transform: translateY(-3px); }
+    .fc-link { background: none; border: none; color: #6c757d; text-decoration: underline; cursor: pointer; font-size: 0.85rem; margin-top: 1rem; }
+
+    /* ===== MAPA CONCEPTUAL ===== */
+    .map-container { overflow-x: auto; padding: 1rem 0; }
+    .map-tree, .map-tree ul { list-style: none; margin: 0; padding-left: 0; }
+    .map-tree ul { display: none; padding-left: 1.6rem; margin: 0.6rem 0 0; border-left: 3px solid var(--QOMed-gold); }
+    .map-tree li.open > ul { display: block; animation: fadeIn 0.4s ease; }
+    .map-tree li { margin: 0.4rem 0; }
+    .map-node { display: inline-block; background: var(--QOMed-blue); color: #fff; padding: 0.6rem 1.1rem; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+    .map-node:hover { background: var(--QOMed-gold); color: var(--QOMed-dark); transform: translateX(4px); }
+    .map-node.root { background: var(--accent); font-size: 1.15rem; }
+    .map-node.branch { background: var(--QOMed-light); }
+    .map-leaf { display: inline-block; background: var(--sand); color: var(--text); padding: 0.45rem 0.9rem; border-radius: 8px; font-size: 0.95rem; border: 2px solid var(--QOMed-gold); }
+    li.has-children > .map-node::before { content: '▶ '; font-size: 0.8em; }
+    li.has-children.open > .map-node::before { content: '▼ '; font-size: 0.8em; }
+
+    @media (max-width: 768px) {
+        h1 { font-size: 1.8rem; } h2 { font-size: 1.5rem; } h3 { font-size: 1.2rem; }
+        .logo-container { flex-direction: column; gap: 1rem; } .logo-QOMed { width: 80px; }
+        .container { padding: 1rem; } .card { padding: 1.5rem; }
+        .nav-buttons { gap: 0.5rem; } .nav-btn { padding: 0.6rem 1rem; font-size: 0.85rem; }
+        .quiz-options { grid-template-columns: 1fr; }
+        .tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+        .tab { flex-shrink: 0; padding: 0.6rem 1rem; font-size: 0.9rem; }
+        .flashcard-scene { height: 360px; } .fc-face { font-size: 1rem; padding: 1rem; }
+    }
+    @media (max-width: 480px) {
+        h1 { font-size: 1.4rem; } .subtitle { font-size: 0.9rem; } header { padding: 1rem; }
+        .card { padding: 1rem; } .nav-btn { padding: 0.5rem 0.7rem; font-size: 0.8rem; }
+    }
+</style>
+</head>
+<body>
+<header>
+    <div class="logo-container">
+        <img src="Logo-QOMed.png" alt="Logo QOMed" class="logo-QOMed">
+        <div>
+            <h1>Química Orgánica</h1>
+            <p class="subtitle">Especializada para alumnos de Medicina</p>
+            <p class="subtitle">Capítulo 10: Aromaticidad y Sustitución Electrofílica</p>
+        </div>
+    </div>
+</header>
+
+<nav class="nav-container">
+    <div class="nav-buttons">
+        <button class="nav-btn active" onclick="showSection('inicio', this)">🏠 Inicio</button>
+        <button class="nav-btn" onclick="showSection('conceptos', this)">📚 Conceptos</button>
+        <button class="nav-btn" onclick="showSection('mapa', this)">🗺️ Mapa Conceptual</button>
+        <button class="nav-btn" onclick="showSection('flashcards', this)">🃏 Flashcards</button>
+        <button class="nav-btn" onclick="showSection('calculadoras', this)">🧮 Herramientas</button>
+        <button class="nav-btn" onclick="showSection('aplicaciones', this)">🏥 Aplicaciones</button>
+        <button class="nav-btn" onclick="showSection('mnemotecnias', this)">🧠 Mnemotecnias</button>
+        <button class="nav-btn" onclick="showSection('glosario', this)">📖 Glosario</button>
+        <button class="nav-btn" onclick="showSection('errores', this)">⚠️ Errores Comunes</button>
+        <button class="nav-btn" onclick="showSection('bibliografia', this)">📚 Bibliografía</button>
+        <button class="nav-btn" onclick="showSection('quiz', this)">🎯 Quiz</button>
+    </div>
+</nav>
+
+<div class="container">
+
+<!-- ============ INICIO ============ -->
+<section id="inicio" class="section active">
+    <div class="card">
+        <h2>🎯 Objetivos de la Sesión</h2>
+        <div class="info-box">
+            <ul style="font-size: 1.1rem; line-height: 2;">
+                <li>✓ Identificar a los compuestos aromáticos y sus requisitos de estabilidad.</li>
+                <li>✓ Establecer las características y el mecanismo de las reacciones del benceno.</li>
+                <li>✓ Identificar los productos principales en las reacciones de disustitución del benceno.</li>
+                <li>✓ Comprender el efecto orientador de los sustituyentes (activantes y desactivantes).</li>
+            </ul>
+        </div>
+        <h3>🩺 Importancia para la Medicina</h3>
+        <div class="bio-box">
+            <div><strong>¿Por qué un futuro médico debe dominar la aromaticidad y la SE?</strong>
+                <ul style="font-size: 1rem; margin-top: 1rem;">
+                    <li>• La mayoría de los <strong>fármacos</strong> (ej. AINEs, antibióticos, psicofármacos) contienen anillos aromáticos que definen su estabilidad y metabolismo.</li>
+                    <li>• Las reacciones de <strong>Sustitución Electrofílica</strong> explican la síntesis de medicamentos como la Aspirina (acetilación) y la sulfonamidas.</li>
+                    <li>• El <strong>metabolismo hepático</strong> (citocromo P450) realiza hidroxilaciones (sustituciones) en anillos aromáticos de fármacos y toxinas.</li>
+                    <li>• La estabilidad por <strong>resonancia</strong> del benceno explica por qué estos compuestos no se degradan fácilmente en el organismo, requiriendo enzimas específicas.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tip-box"><strong>📌 Ruta de estudio sugerida:</strong> Conceptos → Mapa conceptual → Flashcards → Herramientas → Aplicaciones → Quiz (10 preguntas aleatorias de una base de 30; cada ciclo recarga preguntas nuevas).</div>
+        <div class="pharma-box"><strong>Regla de oro del capítulo:</strong> El benceno es excepcionalmente estable (energía de resonancia de 36 kcal/mol). Por ello, <strong>prefiere la sustitución sobre la adición</strong> para no perder su aromaticidad. Los sustituyentes donadores de electrones activan y orientan <em>orto/para</em>; los sustractores desactivan y orientan <em>meta</em> (excepto los halógenos, que desactivan pero orientan <em>orto/para</em>).</div>
+    </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos" class="section">
+    <div class="card">
+        <h2>📚 Conceptos Fundamentales</h2>
+        <div id="conceptos-tabs" class="tab-group">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('conceptos-tabs','sub-aromaticidad', this)">⚛️ Aromaticidad y Hückel</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-mecanismo', this)">🔄 Mecanismo de SE</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-reacciones', this)">🧪 Reacciones Principales</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-orientacion', this)">🎯 Efecto de Sustituyentes</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-disustitucion', this)">🔀 Disustitución en el Benceno</button>
+            </div>
+
+            <div id="sub-aromaticidad" class="tab-content active">
+                <h3>⚛️ Reglas de Aromaticidad</h3>
+                <div class="info-box">El benceno es un anillo plano de átomos de carbono con hibridación <strong>sp²</strong>, con todos los orbitales p no hibridados alineados y solapados. Longitud de enlace: <strong>1,397 Å</strong>. Ángulos: <strong>120º</strong>.</div>
+                <div class="tip-box">
+                    <strong>Para que un compuesto sea aromático debe cumplir:</strong>
+                    <ol>
+                        <li>Debe contener un <strong>ciclo</strong> y ser <strong>plano</strong>.</li>
+                        <li>Todos los átomos del ciclo deben formar una <strong>nube π deslocalizada</strong> (continua).</li>
+                        <li>Debe cumplir la <strong>Regla de Hückel</strong>: la nube π debe contener <strong>"4n + 2"</strong> electrones (donde n = 0, 1, 2...).</li>
+                    </ol>
+                </div>
+                <div class="bio-box">
+                    <strong>Antiaromaticidad:</strong> Si el sistema es cíclico, plano y conjugado, pero tiene <strong>"4n"</strong> electrones π, se denomina <em>antiaromático</em> y se caracteriza por su <strong>alta inestabilidad</strong> (ej. catión ciclopentadienilo con 4 e⁻ π). El anión ciclopentadienilo (6 e⁻ π) sí es aromático.
+                </div>
+                <div class="problem-box"><strong>Dato clave:</strong> El calor de hidrogenación observado del benceno es -49,8 kcal/mol, mientras que el predicho para un "ciclohexatrieno" hipotético sería -85,8 kcal/mol. La diferencia de <strong>36 kcal/mol</strong> es la <em>energía de resonancia</em> que lo estabiliza.</div>
+            </div>
+
+            <div id="sub-mecanismo" class="tab-content">
+                <h3>🔄 Sustitución Electrofílica Aromática (SE)</h3>
+                <div class="info-box">Los compuestos aromáticos sufren usualmente reacciones de <strong>sustitución</strong> y no de adición, para no destruir la aromaticidad. El mecanismo ocurre en dos pasos:</div>
+                <div class="tip-box">
+                    <strong>Paso 1 (Lento, endotérmico):</strong> Ataque del anillo aromático (rica nube π) a un agente electrófilo (E⁺), formando un <strong>carbocatión estabilizado por resonancia</strong> llamado <em>complejo sigma</em>. Este es el paso determinante de la velocidad.<br>
+                    <strong>Paso 2 (Rápido, fuertemente exotérmico):</strong> Pérdida de un protón (H⁺) del complejo sigma para <strong>recuperar la aromaticidad</strong>, dando el producto de sustitución.
+                </div>
+            </div>
+
+            <div id="sub-reacciones" class="tab-content">
+                <h3>🧪 Reacciones Principales del Benceno</h3>
+                <div class="table-responsive">
+                    <table>
+                        <tr><th>Reacción</th><th>Reactivos / Catalizador</th><th>Electrófilo Generado</th></tr>
+                        <tr><td><strong>Halogenación</strong> (Bromación/Cloración)</td><td>Br₂ + FeBr₃ (o Fe) / Cl₂ + AlCl₃</td><td>Br⁺ (complejado) o Cl⁺</td></tr>
+                        <tr><td><strong>Nitración</strong></td><td>HNO₃ + H₂SO₄ (conc.)</td><td>Ion nitronio (NO₂⁺)</td></tr>
+                        <tr><td><strong>Sulfonación</strong></td><td>Oleum (SO₃ / H₂SO₄)</td><td>SO₃ o HSO₃⁺</td></tr>
+                        <tr><td><strong>Friedel-Crafts</strong> (Alquilación)</td><td>R-X + AlCl₃ (o alqueno + H⁺, o alcohol + BF₃)</td><td>Carbocatión R⁺</td></tr>
+                        <tr><td><strong>Friedel-Crafts</strong> (Acilación)</td><td>R-CO-X + AlCl₃</td><td>Ion acilio (R-C≡O⁺)</td></tr>
+                    </table>
+                </div>
+                <div class="pharma-box"><strong>Nota sobre Sulfonación:</strong> Es la única reacción de SE que es <strong>reversible</strong>. El grupo ácido sulfónico puede eliminarse calentando en ácido sulfúrico diluido.</div>
+                <div class="error-card" style="margin-top:1rem;"><div class="error-title">⚠️ Cuidado en Friedel-Crafts de Alquilación</div><div class="correction">Los carbocationes generados pueden sufrir <strong>reordenamientos</strong> (transposiciones) para formar carbocationes más estables (ej. de primario a secundario o terciario) antes de atacar al anillo.</div></div>
+            </div>
+
+            <div id="sub-orientacion" class="tab-content">
+                <h3>🎯 Efecto Orientador de Sustituyentes</h3>
+                <div class="info-box">
+                    <strong>1. Activadores Orto/Para:</strong> Donadores de electrones. Estabilizan el complejo sigma. Ej: -OH, -NH₂, -OR, -CH₃ (alquilos). El tolueno reacciona ~25 veces más rápido que el benceno.
+                </div>
+                <div class="bio-box">
+                    <strong>2. Desactivadores Meta:</strong> Sustractores de electrones. Desestabilizan el anillo, especialmente en orto/para, dejando a meta como la opción "menos mala". Ej: -NO₂, -CN, -COOH, -SO₃H. El nitrobenceno es ~100,000 veces menos reactivo que el benceno.
+                </div>
+                <div class="tip-box">
+                    <strong>3. La Excepción: Halógenos (-F, -Cl, -Br, -I):</strong> Son <strong>desactivantes</strong> (por su alta electronegatividad que sustrae densidad electrónica por efecto inductivo), pero son <strong>orientadores Orto/Para</strong> (porque sus pares de electrones no enlazantes pueden estabilizar por resonancia el complejo sigma solo si el ataque es en esas posiciones).
+                </div>
+            </div>
+
+            <div id="sub-disustitucion" class="tab-content">
+                <h3>🔀 Disustitución en el Benceno</h3>
+                <div class="info-box">Cuando hay dos o más sustituyentes, ejercen un <strong>efecto combinado</strong>:</div>
+                <ul>
+                    <li><strong>Cooperación:</strong> Si ambos grupos dirigen a la misma posición (ej. m-xileno, donde ambos -CH₃ dirigen a las mismas posiciones), el producto es único y la reacción es muy favorable.</li>
+                    <li><strong>Competencia:</strong> El grupo <strong>más fuertemente activante</strong> domina la orientación. (Orden de activación: -NH₂, -OH > -OR > -R > Halógenos > Desactivadores meta).</li>
+                    <li><strong>Impedimento estérico:</strong> Las posiciones entre dos sustituyentes (especialmente si son voluminosos) están bloqueadas y no reaccionarán.</li>
+                </ul>
+                <div class="problem-box"><strong>Ejemplo:</strong> En el p-nitrotolueno, el grupo metilo dirige a sus posiciones orto, y el grupo nitro dirige a sus posiciones meta. ¡Ambas reglas apuntan a la misma posición! Por lo tanto, se obtiene un solo producto principal.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ MAPA ============ -->
+<section id="mapa" class="section">
+    <div class="card">
+        <h2>🗺️ Mapa Conceptual Interactivo</h2>
+        <p style="margin-bottom:1rem;">Haz <strong>clic en cada nodo</strong> para desplegar u ocultar sus ramas.</p>
+        <div class="map-container">
+            <ul class="map-tree">
+                <li class="has-children">
+                    <div class="map-node root" onclick="toggleMap(this)">🧪 Aromaticidad y SE (Capítulo 10)</div>
+                    <ul>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">⚛️ Reglas de Aromaticidad</div>
+                            <ul>
+                                <li><span class="map-leaf">Ciclo plano</span></li>
+                                <li><span class="map-leaf">Nube π deslocalizada continua</span></li>
+                                <li><span class="map-leaf">Regla de Hückel: 4n + 2 electrones π</span></li>
+                                <li><span class="map-leaf">4n electrones π = Antiaromático (inestable)</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">🔄 Mecanismo de SE</div>
+                            <ul>
+                                <li><span class="map-leaf">Paso 1: Ataque al electrófilo → Complejo sigma (lento, endotérmico)</span></li>
+                                <li><span class="map-leaf">Paso 2: Pérdida de H⁺ → Recuperación de aromaticidad (rápido, exotérmico)</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">🧪 Reacciones Clave</div>
+                            <ul>
+                                <li><span class="map-leaf">Halogenación: Br₂/FeBr₃ o Cl₂/AlCl₃</span></li>
+                                <li><span class="map-leaf">Nitración: HNO₃/H₂SO₄ → Ion nitronio (NO₂⁺)</span></li>
+                                <li><span class="map-leaf">Sulfonación: SO₃/H₂SO₄ (Reversible)</span></li>
+                                <li><span class="map-leaf">Friedel-Crafts: Alquilación (cuidado con reordenamientos) y Acilación</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">🎯 Efecto de Sustituyentes</div>
+                            <ul>
+                                <li><span class="map-leaf">Activadores (donadores): Orientan Orto/Para</span></li>
+                                <li><span class="map-leaf">Desactivadores (sustractores): Orientan Meta</span></li>
+                                <li><span class="map-leaf">Halógenos: Excepción. Desactivan, pero orientan Orto/Para</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">🔀 Disustitución</div>
+                            <ul>
+                                <li><span class="map-leaf">Grupos cooperativos: Dirigen a la misma posición</span></li>
+                                <li><span class="map-leaf">Grupos competitivos: El más activante domina</span></li>
+                                <li><span class="map-leaf">Impedimento estérico: Bloquea posiciones cercanas</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FLASHCARDS ============ -->
+<section id="flashcards" class="section">
+    <div class="card">
+        <h2>🃏 Flashcards de Estudio</h2>
+        <p>Haz <strong>clic en la tarjeta</strong> para voltearla y ver la respuesta. Luego califícate con honestidad.</p>
+        <div class="fc-stats">
+            <span class="fc-stat good">✅ Buenas: <span id="fc-good">0</span></span>
+            <span class="fc-stat bad">❌ Malas: <span id="fc-bad">0</span></span>
+            <span class="fc-stat pending">⏳ Pendientes: <span id="fc-left">0</span></span>
+            <span class="fc-stat total">📈 Historial: <span id="fc-hist">0 ✓ / 0 ✗</span></span>
+        </div>
+        <div class="fc-progress"><div class="fc-progress-bar" id="fc-bar"></div></div>
+        <div class="flashcard-scene" id="fc-scene">
+            <div class="flashcard" id="fc-card" onclick="flipCard()">
+                <div class="fc-face fc-front"><div class="fc-label">PREGUNTA</div><div id="fc-question"></div><span class="fc-hint">Clic para voltear ✨</span></div>
+                <div class="fc-face fc-back"><div class="fc-label">RESPUESTA</div><div id="fc-answer"></div></div>
+            </div>
+        </div>
+        <div class="fc-controls" id="fc-controls">
+            <button class="fc-btn good" id="btn-fc-good" onclick="gradeCard(true)" disabled>✅ La sabía</button>
+            <button class="fc-btn bad" id="btn-fc-bad" onclick="gradeCard(false)" disabled>❌ No la sabía</button>
+        </div>
+        <div id="fc-summary" class="calc-result" style="max-width:720px;margin:1rem auto;"></div>
+        <div style="text-align:center;">
+            <button class="calc-button" onclick="resetFlashcards()">🔄 Reiniciar Flashcards</button><br>
+            <button class="fc-link" onclick="borrarHistorial()">Borrar historial acumulado</button>
+        </div>
+    </div>
+</section>
+
+<!-- ============ HERRAMIENTAS ============ -->
+<section id="calculadoras" class="section">
+    <div class="card">
+        <h2>🧮 Herramientas Interactivas</h2>
+        <div id="herramientas-tabs" class="tab-group">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('herramientas-tabs','calc-aromaticidad', this)">⚛️ Evaluador de Aromaticidad</button>
+                <button class="tab" onclick="showTab('herramientas-tabs','calc-orientacion', this)">🎯 Predictor de Orientación</button>
+                <button class="tab" onclick="showTab('herramientas-tabs','calc-electrofilo', this)">🧪 Generador de Electrófilo</button>
+            </div>
+
+            <div id="calc-aromaticidad" class="tab-content active">
+                <div class="calculator">
+                    <div class="calc-title">⚛️ Evaluador de Aromaticidad (Regla de Hückel)</div>
+                    <div class="calc-input-group"><label>Selecciona una especie química:</label>
+                        <select id="aromaticidad-select">
+                            <option value="0">Benceno (Cíclico, plano, 6 e⁻ π)</option>
+                            <option value="1">Anión ciclopentadienilo (Cíclico, plano, 6 e⁻ π)</option>
+                            <option value="2">Catión ciclopentadienilo (Cíclico, plano, 4 e⁻ π)</option>
+                            <option value="3">Ciclooctatetraeno (No plano, 8 e⁻ π)</option>
+                            <option value="4">Ciclobutadieno (Cíclico, plano, 4 e⁻ π)</option>
+                        </select>
+                    </div>
+                    <button class="calc-button" onclick="evaluarAromaticidad()">Evaluar</button>
+                    <div id="aromaticidad-resultado" class="calc-result"></div>
+                </div>
+            </div>
+
+            <div id="calc-orientacion" class="tab-content">
+                <div class="calculator">
+                    <div class="calc-title">🎯 Predictor de Orientación en SE</div>
+                    <div class="calc-input-group"><label>Selecciona un sustituyente ya presente en el anillo:</label>
+                        <select id="orientacion-select">
+                            <option value="0">-OH (Hidroxilo)</option>
+                            <option value="1">-CH₃ (Metilo)</option>
+                            <option value="2">-NO₂ (Nitro)</option>
+                            <option value="3">-Cl (Cloro)</option>
+                            <option value="4">-COOH (Carboxilo)</option>
+                            <option value="5">-NH₂ (Amino)</option>
+                        </select>
+                    </div>
+                    <button class="calc-button" onclick="predecirOrientacion()">Predecir efecto</button>
+                    <div id="orientacion-resultado" class="calc-result"></div>
+                </div>
+            </div>
+
+            <div id="calc-electrofilo" class="tab-content">
+                <div class="calculator">
+                    <div class="calc-title">🧪 Generador de Electrófilo</div>
+                    <div class="calc-input-group"><label>Selecciona la reacción de SE:</label>
+                        <select id="electrofilo-select">
+                            <option value="0">Nitración (HNO₃ + H₂SO₄)</option>
+                            <option value="1">Bromación (Br₂ + FeBr₃)</option>
+                            <option value="2">Sulfonación (SO₃ + H₂SO₄)</option>
+                            <option value="3">Alquilación de Friedel-Crafts (R-Cl + AlCl₃)</option>
+                        </select>
+                    </div>
+                    <button class="calc-button" onclick="generarElectrofilo()">Mostrar electrófilo</button>
+                    <div id="electrofilo-resultado" class="calc-result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ APLICACIONES ============ -->
+<section id="aplicaciones" class="section">
+    <div class="card">
+        <h2>🏥 Aplicaciones Profesionales</h2>
+        <div id="aplicaciones-tabs" class="tab-group">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('aplicaciones-tabs','aplic-medicina', this)">🩺 Medicina y Farmacología</button>
+                <button class="tab" onclick="showTab('aplicaciones-tabs','aplic-bioq', this)">🧬 Bioquímica y Metabolismo</button>
+            </div>
+
+            <div id="aplic-medicina" class="tab-content active">
+                <div class="bio-box"><strong>Enfoque clínico:</strong> La química de los anillos aromáticos es la base de la síntesis de la mayoría de los fármacos modernos.</div>
+                <div class="problem-box"><strong>📋 Problema 1 — Síntesis de la Aspirina:</strong> La síntesis industrial del ácido acetilsalicílico implica una reacción de acilación (tipo Friedel-Crafts modificada) del ácido salicílico. ¿Qué grupo dirige la entrada del grupo acetilo?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>El grupo <strong>-OH (hidroxilo)</strong> es un fuerte activante <em>orto/para</em> director. Dirige la acilación a la posición <em>orto</em> respecto a sí mismo, formando el ácido acetilsalicílico.</p>
+                </details>
+                <div class="problem-box"><strong>📋 Problema 2 — Sulfonamidas:</strong> Las sulfonamidas son antibióticos que contienen un anillo bencénico con un grupo sulfonamida. ¿Cómo se introduce el grupo sulfónico en el benceno durante su síntesis?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>Mediante una reacción de <strong>sulfonación</strong> usando oleum (SO₃ en H₂SO₄). Esta reacción es reversible, lo que permite ajustar las condiciones para maximizar el rendimiento.</p>
+                </details>
+            </div>
+
+            <div id="aplic-bioq" class="tab-content">
+                <div class="bio-box"><strong>Enfoque molecular:</strong> El metabolismo de compuestos aromáticos en el hígado sigue principios de la SE.</div>
+                <div class="problem-box"><strong>📋 Problema 1 — Hidroxilación por Citocromo P450:</strong> Muchos fármacos aromáticos son metabolizados por la adición de un grupo -OH al anillo. ¿Por qué esta reacción ocurre más fácilmente si el anillo ya tiene un grupo -CH₃?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>Porque el grupo <strong>-CH₃</strong> es un <strong>activante orto/para</strong>. Aumenta la densidad electrónica del anillo, facilitando el ataque del electrófilo (el oxígeno activado por la enzima) y estabilizando el complejo sigma intermedio.</p>
+                </details>
+                <div class="problem-box"><strong>📋 Problema 2 — Aminoácidos aromáticos:</strong> La tirosina y el triptófano tienen anillos aromáticos. ¿Por qué el anillo de la tirosina es más reactivo hacia electrófilos que el del benceno puro?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>Porque el grupo <strong>-OH</strong> fenólico de la tirosina dona densidad electrónica al anillo por resonancia, activándolo fuertemente para reacciones de sustitución electrofílica.</p>
+                </details>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ MNEMOTECNIAS ============ -->
+<section id="mnemotecnias" class="section">
+    <div class="card">
+        <h2>🧠 Mnemotecnias y Reglas de Oro</h2>
+        <div class="mnemonic-card"><div class="mnemonic-title">⚛️ "Hückel: 4n + 2 = Felicidad (Aromaticidad)"</div><p>Si los electrones π encajan en la fórmula 4n+2 (2, 6, 10, 14...), el compuesto es aromático y estable. Si es 4n (4, 8, 12...), es antiaromático e inestable.</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">🔄 "SE: Sustituir para no Perder"</div><p>El benceno prefiere la <strong>Sustitución</strong> sobre la Adición para no perder su valiosa energía de resonancia (36 kcal/mol).</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">🎯 "DONA va al LADO (Orto/Para)"</div><p>Los grupos que <strong>DONAN</strong> electrones (activantes) orientan <strong>Orto/Para</strong> (a los lados).</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">🎯 "SACA va al MEDIO (Meta)"</div><p>Los grupos que <strong>SACAN</strong> electrones (desactivantes, como -NO₂) orientan a la posición <strong>Meta</strong> (al medio, evitando las cargas positivas adyacentes).</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">⚠️ "Halógenos: La Excepción Rara"</div><p>Los halógenos <strong>DESACTIVAN</strong> (hacen la reacción más lenta), pero orientan <strong>Orto/Para</strong> (gracias a sus pares libres que estabilizan por resonancia).</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">🔄 "Friedel-Crafts Alquilación: ¡Cuidado con el Cambio!"</div><p>Los carbocationes primarios generados en la alquilación de Friedel-Crafts a menudo sufren <strong>reordenamientos</strong> a secundarios o terciarios antes de atacar al anillo.</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">💧 "Sulfonación: La Reversible"</div><p>La sulfonación es la única SE común que es <strong>reversible</strong>. Se añade con SO₃/H₂SO₄ concentrado y se quita con H₂SO₄ diluido y calor.</p></div>
+    </div>
+</section>
+
+<!-- ============ GLOSARIO ============ -->
+<section id="glosario" class="section">
+    <div class="card">
+        <h2>📖 Glosario Interactivo</h2>
+        <p style="margin-bottom:1.5rem;">Haz clic en cada término para ver su definición:</p>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Aromaticidad</strong><div class="glossary-definition">Propiedad de un compuesto cíclico, plano y conjugado con 4n+2 electrones π, que le confiere una estabilidad excepcional (energía de resonancia).</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Regla de Hückel</strong><div class="glossary-definition">Regla que establece que un sistema monocíclico plano será aromático si posee 4n + 2 electrones π deslocalizados (donde n es un entero: 0, 1, 2...).</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Complejo Sigma</strong><div class="glossary-definition">Intermediario carbocatiónico en la Sustitución Electrofílica Aromática, estabilizado por resonancia, donde el electrófilo ya se ha unido al anillo rompiendo temporalmente la aromaticidad.</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Energía de Resonancia</strong><div class="glossary-definition">Diferencia de energía entre el compuesto aromático real y un hipotético sistema de dobles enlaces localizados. En el benceno es de ~36 kcal/mol.</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Ion Nitronio (NO₂⁺)</strong><div class="glossary-definition">El electrófilo real en la reacción de nitración del benceno, generado por la protonación del ácido nítrico por el ácido sulfúrico seguida de la pérdida de agua.</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Oleum</strong><div class="glossary-definition">Disolución de trióxido de azufre (SO₃) en ácido sulfúrico (H₂SO₄), utilizado como agente sulfonante en la SE.</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Reordenamiento de Carbocatión</strong><div class="glossary-definition">Transposición de un hidruro o grupo alquilo para convertir un carbocatión inestable (ej. primario) en uno más estable (secundario o terciario) durante la alquilación de Friedel-Crafts.</div></div>
+    </div>
+</section>
+
+<!-- ============ ERRORES ============ -->
+<section id="errores" class="section">
+    <div class="card">
+        <h2>⚠️ Errores Comunes de Estudiantes</h2>
+        <div class="error-card"><div class="error-title">❌ Error 1: Creer que los halógenos son activantes</div><p><strong>Error:</strong> Pensar que como orientan orto/para, también activan el anillo.</p><div class="correction">✓ Corrección: Los halógenos son <strong>desactivantes</strong> (la reacción es más lenta que con el benceno puro) debido a su fuerte efecto inductivo sustractor, pero orientan orto/para por resonancia.</div></div>
+        <div class="error-card"><div class="error-title">❌ Error 2: Olvidar los reordenamientos en Friedel-Crafts</div><p><strong>Error:</strong> Asumir que el grupo alquilo añadido será idéntico al halogenuro de alquilo inicial.</p><div class="correction">✓ Corrección: Si se usa un halogenuro primario (ej. 1-cloropropano), el carbocatión se reordenará a uno secundario (isopropilo) antes de atacar al anillo.</div></div>
+        <div class="error-card"><div class="error-title">❌ Error 3: Confundir antiaromático con no aromático</div><p><strong>Error:</strong> Decir que un compuesto con 4n electrones π es "no aromático".</p><div class="correction">✓ Corrección: Si es cíclico, plano y conjugado con 4n e⁻ π, es <strong>antiaromático</strong> (muy inestable). Si no es plano o no es conjugado, entonces sí es <em>no aromático</em>.</div></div>
+        <div class="error-card"><div class="error-title">❌ Error 4: Proponer adición en lugar de sustitución para el benceno</div><p><strong>Error:</strong> Dibujar productos de adición (como en alquenos) para el benceno.</p><div class="correction">✓ Corrección: El benceno sufre <strong>sustitución</strong> para conservar su estabilidad aromática. La adición destruiría la resonancia y es energéticamente desfavorable.</div></div>
+        <div class="error-card"><div class="error-title">❌ Error 5: Ignorar el impedimento estérico en disustitución</div><p><strong>Error:</strong> Predecir sustitución en una posición rodeada por dos grupos voluminosos.</p><div class="correction">✓ Corrección: Las posiciones estéricamente impedidas (entre dos sustituyentes) están prácticamente <strong>bloqueadas</strong> y no reaccionan.</div></div>
+        <div class="tip-box" style="margin-top:2rem;"><strong>💡 Consejo de estudio:</strong> Ante una reacción de SE, pregúntate: 1) ¿Cuál es el electrófilo real? 2) ¿El sustituyente presente activa o desactiva? 3) ¿A dónde orienta? 4) ¿Hay riesgo de reordenamiento (Friedel-Crafts)?</div>
+    </div>
+</section>
+
+<!-- ============ BIBLIOGRAFÍA ============ -->
+<section id="bibliografia" class="section">
+    <div class="card">
+        <h2>📚 Fuentes Bibliográficas Universitarias</h2>
+        <h3>Libros de Texto Principales</h3>
+        <div class="info-box"><strong>1. Wade, L.G. — "Química Orgánica"</strong><br>• <strong>Cap. 16:</strong> Aromaticidad y Sustitución Electrofílica Aromática<br>• 9na edición, Pearson, 2017</div>
+        <div class="info-box"><strong>2. McMurry, J. — "Química Orgánica"</strong><br>• <strong>Cap. 15:</strong> El Benceno y la Aromaticidad<br>• <strong>Cap. 16:</strong> Química del Benceno: Sustitución Electrofílica Aromática<br>• 9na edición, Cengage Learning, 2016</div>
+        <div class="info-box"><strong>3. Solomons, T.W.G. & Fryhle, C.B. — "Química Orgánica"</strong><br>• <strong>Cap. 14:</strong> Reacciones de Sustitución Aromática<br>• 10ma edición, Wiley, 2011</div>
+        <h3>Recursos Especializados</h3>
+        <div class="bio-box"><div><strong>4. Clayden, J. — "Organic Chemistry"</strong><br>• Caps. de aromaticidad y sustitución electrofílica • 2da ed., Oxford, 2012</div></div>
+        <div class="pharma-box"><div><strong>5. Patrick, G.L. — "An Introduction to Medicinal Chemistry"</strong><br>• Metabolismo de fármacos aromáticos y síntesis de AINEs • 6ta ed., Oxford, 2017</div></div>
+    </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="quiz" class="section">
+    <div class="card">
+        <h2>🎯 Quiz de Autoevaluación</h2>
+        <p>Cada ciclo muestra <strong>10 preguntas al azar</strong> de una base de <strong>30</strong>. Cada vez que entras a esta pestaña o terminas un ciclo se sortean preguntas nuevas.</p>
+        <div class="quiz-stats">
+            <span class="quiz-stat" id="q-progress-text">Pregunta 1 de 10 • Aciertos: 0</span>
+            <span class="quiz-stat" id="q-history" style="background:#6c757d;"></span>
+        </div>
+        <div class="quiz-progress"><div class="quiz-progress-bar-bg"><div class="quiz-progress-bar" id="q-bar"></div></div></div>
+        <div id="quiz-container"></div>
+        <div id="quiz-result" class="calc-result" style="max-width:720px;margin:1rem auto;"></div>
+        <div style="text-align:center; margin-top:2rem;">
+            <button class="calc-button" onclick="startNewCycle()">🔄 Reiniciar Quiz (nuevo ciclo aleatorio)</button>
+        </div>
+    </div>
+</section>
+
+</div>
+
+<footer class="footer">
+    <p style="font-size:1.2rem; margin-bottom:1rem;">🎓 Universidad Peruana Cayetano Heredia</p>
+    <p>Facultad de Medicina • Departamento de Ciencias Básicas</p>
+    <p style="margin-top:1rem; font-style:italic;">"La química orgánica es el lenguaje de la vida"</p>
+    <p style="margin-top:2rem; font-size:0.9rem;">© 2026 - Material educativo para estudiantes de medicina</p>
+</footer>
+
+<script>
+    // ================= NAVEGACIÓN =================
+    function showSection(sectionId, btn) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(sectionId).classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        if (sectionId === 'quiz') startNewCycle();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function showTab(groupId, tabId, btn) {
+        const g = document.getElementById(groupId);
+        g.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        g.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        if (btn) btn.classList.add('active');
+    }
+    function toggleMap(node){ node.parentElement.classList.toggle('open'); }
+    function toggleDefinition(el){
+        const d = el.querySelector('.glossary-definition');
+        d.classList.toggle('show');
+        el.style.background = d.classList.contains('show') ? '#fff9e6' : 'var(--white)';
+    }
+    
+    // ================= FLASHCARDS (30 items) =================
+    const flashcards = [
+        { q:'¿Qué es la aromaticidad?', a:'Estabilidad mayor que la de los ciclos no conjugados debido a la conjugación y deslocalización de electrones π.' },
+        { q:'¿Cuáles son las 3 reglas de aromaticidad?', a:'1. Ciclo plano. 2. Nube π deslocalizada en todos los átomos del ciclo. 3. Regla de Hückel (4n+2 e⁻ π).' },
+        { q:'¿Qué son los compuestos antiaromáticos?', a:'Compuestos cíclicos planos con nube π deslocalizada que contienen 4n electrones π, siendo muy inestables.' },
+        { q:'¿Cuántos electrones π tiene el anión ciclopentadienilo?', a:'6 electrones π (es aromático).' },
+        { q:'¿Cuántos electrones π tiene el catión ciclopentadienilo?', a:'4 electrones π (es antiaromático).' },
+        { q:'¿Qué tipo de reacciones sufre el benceno principalmente?', a:'Sustitución Electrofílica Aromática (SE), para no destruir la aromaticidad.' },
+        { q:'¿Qué es el complejo sigma?', a:'Carbocatión intermediario estabilizado por resonancia durante la SE.' },
+        { q:'¿Cuál es el paso determinante de la velocidad en la SE?', a:'La formación del complejo sigma (endotérmico, mayor energía de activación).' },
+        { q:'¿Qué pasa en el segundo paso de la SE?', a:'Pérdida de un protón (H⁺) para recuperar la aromaticidad (fuertemente exotérmico).' },
+        { q:'¿Qué catalizador se usa en la bromación del benceno?', a:'FeBr₃ o Fe (ácido de Lewis).' },
+        { q:'¿Cuál es el electrófilo en la nitración del benceno?', a:'El ion nitronio (NO₂⁺).' },
+        { q:'¿Qué función tiene el H₂SO₄ en la nitración?', a:'Protona el HNO₃ para que se desprenda agua y se forme el ion nitronio.' },
+        { q:'¿Con qué reactivos se realiza la sulfonación del benceno?', a:'Oleum (SO₃ / H₂SO₄).' },
+        { q:'¿La sulfonación del benceno es reversible?', a:'Sí, el grupo ácido sulfónico puede eliminarse con calor en H₂SO₄ diluido.' },
+        { q:'¿Qué introduce la reacción de Friedel-Crafts?', a:'Grupos alquilo (alquilación) o acilo (acilación) en el anillo bencénico.' },
+        { q:'¿Qué precaución se debe tener en la alquilación de Friedel-Crafts?', a:'Los carbocationes pueden sufrir reordenamientos para formar especies más estables.' },
+        { q:'¿El grupo metilo es activante o desactivante?', a:'Activante (dona electrones por efecto inductivo e hiperconjugación).' },
+        { q:'¿A qué posiciones orienta el grupo metilo?', a:'Orto y Para.' },
+        { q:'¿Por qué el tolueno reacciona más rápido que el benceno?', a:'El grupo metilo estabiliza el complejo sigma intermedio, especialmente en orto y para.' },
+        { q:'¿El grupo nitro (-NO₂) es activante o desactivante?', a:'Desactivante (sustrae electrones por efecto inductivo y de resonancia).' },
+        { q:'¿A qué posición orienta el grupo nitro?', a:'Meta.' },
+        { q:'¿Por qué el ataque orto/para en el nitrobenceno es inestable?', a:'Porque coloca dos cargas positivas juntas (en el C unido al N y en el N), generando repulsión.' },
+        { q:'¿Los halógenos son activantes o desactivantes?', a:'Desactivantes (por su alta electronegatividad).' },
+        { q:'¿A qué posiciones orientan los halógenos?', a:'Orto y Para (excepción a la regla general de desactivadores).' },
+        { q:'¿Por qué los halógenos orientan orto/para a pesar de ser desactivantes?', a:'Sus pares de electrones no enlazantes estabilizan por resonancia el complejo sigma en esas posiciones.' },
+        { q:'¿Qué pasa cuando hay dos sustituyentes que se refuerzan?', a:'El resultado es fácil de predecir, dirigen a las mismas posiciones (ej. m-xileno).' },
+        { q:'¿Qué sucede en posiciones estéricamente impedidas durante la disustitución?', a:'No reaccionan o lo hacen muy lentamente debido al bloqueo espacial.' },
+        { q:'¿La anilina requiere catalizador para la bromación?', a:'No, experimenta bromación rápida con agua de bromo debido a la fuerte activación del -NH₂.' },
+        { q:'¿Cuál es la hibridación de los carbonos en el benceno?', a:'sp².' },
+        { q:'¿Cuál es la longitud de los enlaces C-C en el benceno?', a:'1,397 Å (todos iguales, intermedios entre simple y doble).' }
+    ];
+    let fcIndex=0, fcFlipped=false, fcGood=0, fcBad=0, fcDone=false;
+    function fcUpdateStats(){
+        document.getElementById('fc-good').textContent=fcGood;
+        document.getElementById('fc-bad').textContent=fcBad;
+        document.getElementById('fc-left').textContent=Math.max(0,flashcards.length-fcIndex);
+        const tg=parseInt(localStorage.getItem('fc10TotalGood')||'0',10), tb=parseInt(localStorage.getItem('fc10TotalBad')||'0',10);
+        document.getElementById('fc-hist').textContent=tg+' ✓ / '+tb+' ✗';
+        document.getElementById('fc-bar').style.width=(fcIndex/flashcards.length*100)+'%';
+    }
+    function fcRenderCard(){
+        document.getElementById('fc-card').classList.remove('flipped'); fcFlipped=false;
+        document.getElementById('fc-question').textContent=flashcards[fcIndex].q;
+        document.getElementById('fc-answer').innerHTML=flashcards[fcIndex].a;
+        document.getElementById('btn-fc-good').disabled=true; document.getElementById('btn-fc-bad').disabled=true;
+        fcUpdateStats();
+    }
+    function flipCard(){
+        if(fcDone) return;
+        const c=document.getElementById('fc-card'); c.classList.toggle('flipped');
+        fcFlipped=c.classList.contains('flipped');
+        document.getElementById('btn-fc-good').disabled=!fcFlipped;
+        document.getElementById('btn-fc-bad').disabled=!fcFlipped;
+    }
+    function gradeCard(ok){
+        if(!fcFlipped||fcDone) return;
+        if(ok){ fcGood++; localStorage.setItem('fc10TotalGood',String(parseInt(localStorage.getItem('fc10TotalGood')||'0',10)+1)); }
+        else { fcBad++; localStorage.setItem('fc10TotalBad',String(parseInt(localStorage.getItem('fc10TotalBad')||'0',10)+1)); }
+        fcIndex++;
+        if(fcIndex<flashcards.length) { fcRenderCard(); } else { fcFinish(); }
+    }
+    function fcFinish(){
+        fcDone=true;
+        document.getElementById('fc-scene').style.display='none';
+        document.getElementById('fc-controls').style.display='none';
+        const pct=Math.round(fcGood/(fcGood+fcBad)*100);
+        const msg=pct>=80?' 🏆 ¡Excelente! Dominas el Capítulo 10.':(pct>=60?'💪 ¡Bien! Repasa las que fallaste.':'📚 Repasa Conceptos, Mapa y Errores Comunes.');
+        const s=document.getElementById('fc-summary');
+        s.innerHTML='<strong>📊 Resumen:</strong> ✅ '+fcGood+' • ❌ '+fcBad+' • Precisión <strong>'+pct+'%</strong><br>'+msg;
+        s.classList.add('show'); fcUpdateStats();
+    }
+    function resetFlashcards(){
+        fcIndex=0; fcGood=0; fcBad=0; fcDone=false;
+        document.getElementById('fc-scene').style.display='block';
+        document.getElementById('fc-controls').style.display='flex';
+        document.getElementById('fc-summary').classList.remove('show');
+        fcRenderCard();
+    }
+    function borrarHistorial(){ localStorage.removeItem('fc10TotalGood'); localStorage.removeItem('fc10TotalBad'); fcUpdateStats(); }
+    
+    // ================= HERRAMIENTAS =================
+    const aromaticidadData = [
+        { s:'Benceno', r:'Aromático', x:'Cíclico, plano y cumple Hückel con 6 e⁻ π (n=1).' },
+        { s:'Anión ciclopentadienilo', r:'Aromático', x:'Cíclico, plano y tiene 6 e⁻ π deslocalizados (cumple 4n+2).' },
+        { s:'Catión ciclopentadienilo', r:'Antiaromático', x:'Cíclico y plano, pero tiene 4 e⁻ π (cumple 4n), lo que lo hace muy inestable.' },
+        { s:'Ciclooctatetraeno', r:'No aromático', x:'Aunque tiene 8 e⁻ π, adopta una conformación no plana (forma de tina) para evitar la antiaromaticidad.' },
+        { s:'Ciclobutadieno', r:'Antiaromático', x:'Cíclico, plano y conjugado con 4 e⁻ π (cumple 4n), extremadamente inestable.' }
+    ];
+    function evaluarAromaticidad(){
+        const d=aromaticidadData[parseInt(document.getElementById('aromaticidad-select').value,10)];
+        const r=document.getElementById('aromaticidad-resultado');
+        r.innerHTML='<strong>'+d.s+'</strong><br>Resultado: <span style="color:#e94560;font-weight:bold;">'+d.r+'</span><br>💡 '+d.x;
+        r.classList.add('show');
+    }
+    const orientacionData = [
+        { s:'-OH (Hidroxilo)', t:'Fuerte Activante', o:'Orto / Para', x:'Dona electrones por resonancia (par libre del O).' },
+        { s:'-CH₃ (Metilo)', t:'Activante Débil', o:'Orto / Para', x:'Dona electrones por efecto inductivo e hiperconjugación.' },
+        { s:'-NO₂ (Nitro)', t:'Fuerte Desactivante', o:'Meta', x:'Sustrae electrones por resonancia e inductivo, desestabilizando orto/para.' },
+        { s:'-Cl (Cloro)', t:'Desactivante', o:'Orto / Para', x:'Excepción: Sustrae por inductivo (desactiva), pero dona por resonancia (orienta o/p).' },
+        { s:'-COOH (Carboxilo)', t:'Desactivante', o:'Meta', x:'El carbono carbonílico sustrae densidad electrónica del anillo.' },
+        { s:'-NH₂ (Amino)', t:'Fuerte Activante', o:'Orto / Para', x:'Dona electrones por resonancia (par libre del N) de manera muy eficaz.' }
+    ];
+    function predecirOrientacion(){
+        const d=orientacionData[parseInt(document.getElementById('orientacion-select').value,10)];
+        const r=document.getElementById('orientacion-resultado');
+        r.innerHTML='<strong>Sustituyente:</strong> '+d.s+'<br>Tipo: <span style="color:#e94560;font-weight:bold;">'+d.t+'</span><br>Orientación: <span style="color:#28a745;font-weight:bold;">'+d.o+'</span><br>💡 '+d.x;
+        r.classList.add('show');
+    }
+    const electrofiloData = [
+        { r:'Nitración', e:'Ion nitronio (NO₂⁺)', x:'El H₂SO₄ protona al HNO₃, que pierde agua para formar NO₂⁺.' },
+        { r:'Bromación', e:'Br⁺ (complejado con FeBr₄⁻)', x:'El FeBr₃ polariza el enlace Br-Br, generando un electrófilo bromo fuerte.' },
+        { r:'Sulfonación', e:'SO₃ (o HSO₃⁺)', x:'El SO₃ es un electrófilo fuerte debido a la carga parcial positiva en el azufre.' },
+        { r:'Alquilación de Friedel-Crafts', e:'Carbocatión (R⁺)', x:'El AlCl₃ extrae el halógeno, generando un carbocatión (que puede reordenarse).' }
+    ];
+    function generarElectrofilo(){
+        const d=electrofiloData[parseInt(document.getElementById('electrofilo-select').value,10)];
+        const r=document.getElementById('electrofilo-resultado');
+        r.innerHTML='<strong>Reacción:</strong> '+d.r+'<br>Electrófilo: <span style="color:#e94560;font-weight:bold;">'+d.e+'</span><br>💡 '+d.x;
+        r.classList.add('show');
+    }
+    
+    // ================= QUIZ (base 30, muestra 10 al azar) =================
+    const quizBank = [
+        { question:'¿Cuántos electrones π debe tener un compuesto para ser aromático según Hückel?', options:['4n','4n + 2','2n','n + 2'], correct:1, explanation:'La regla de Hückel establece que un sistema cíclico plano es aromático si tiene 4n + 2 electrones π.' },
+        { question:'¿Qué característica geométrica debe tener un compuesto aromático?', options:['Tetraédrica','Plana','Lineal','Piramidal'], correct:1, explanation:'El compuesto debe ser plano para permitir el solapamiento continuo de los orbitales p y la deslocalización de la nube π.' },
+        { question:'¿Qué es la energía de resonancia del benceno?', options:['La energía necesaria para romperlo','La diferencia entre el calor de hidrogenación predicho y el observado (~36 kcal/mol)','La energía de sus enlaces simples','La energía de activación de la SE'], correct:1, explanation:'Es la diferencia de estabilidad entre el benceno real y un hipotético ciclohexatrieno con dobles enlaces localizados.' },
+        { question:'¿Cuál es el electrófilo en la nitración del benceno?', options:['Ácido nítrico (HNO₃)','Ácido sulfúrico (H₂SO₄)','Ion nitronio (NO₂⁺)','Ion hidronio (H₃O⁺)'], correct:2, explanation:'El H₂SO₄ protona al HNO₃, que luego pierde una molécula de agua para generar el ion nitronio (NO₂⁺), el electrófilo real.' },
+        { question:'¿Qué catalizador se usa típicamente en la bromación del benceno?', options:['H₂SO₄','FeBr₃ o Fe','AlCl₃','NaOH'], correct:1, explanation:'Se requiere un ácido de Lewis como FeBr₃ o hierro metálico (que forma FeBr₃ in situ) para polarizar el Br₂ y generar un electrófilo fuerte.' },
+        { question:'¿La sulfonación del benceno es reversible?', options:['No, es irreversible','Sí, con ácido sulfúrico diluido y calor','Solo a temperatura ambiente','Solo en presencia de halógenos'], correct:1, explanation:'La sulfonación es la única reacción de SE común que es reversible; el grupo sulfónico puede eliminarse con H₂SO₄ diluido y calor.' },
+        { question:'¿Qué tipo de reacción sufre principalmente el benceno?', options:['Adición electrofílica','Sustitución Electrofílica Aromática (SE)','Sustitución Nucleofílica','Oxidación'], correct:1, explanation:'El benceno sufre SE para conservar su estabilidad aromática; las reacciones de adición destruirían la resonancia.' },
+        { question:'¿Por qué el benceno no sufre reacciones de adición fácilmente?', options:['Porque es muy reactivo','Porque destruiría la aromaticidad y la estabilidad por resonancia','Porque no tiene electrones','Porque es un gas'], correct:1, explanation:'La adición rompería el sistema conjugado continuo, perdiendo la energía de resonancia de 36 kcal/mol.' },
+        { question:'¿Qué es el complejo sigma en la SE?', options:['El producto final','Un carbocatión intermediario estabilizado por resonancia','Un anión estable','El catalizador'], correct:1, explanation:'Es el intermediario carbocatiónico formado tras el ataque del electrófilo, donde la aromaticidad se rompe temporalmente pero se estabiliza por resonancia.' },
+        { question:'¿Qué paso es el determinante de la velocidad en la SE?', options:['La pérdida del protón','La formación del complejo sigma','La regeneración del catalizador','La deslocalización final'], correct:1, explanation:'La formación del complejo sigma es endotérmica y tiene la mayor energía de activación, por lo que es el paso lento y determinante.' },
+        { question:'¿El grupo metilo (-CH₃) es activante o desactivante?', options:['Desactivante fuerte','Activante','Neutro','Desactivante débil'], correct:1, explanation:'El grupo metilo es activante porque dona densidad electrónica al anillo por efecto inductivo e hiperconjugación.' },
+        { question:'¿A qué posiciones orienta el grupo metilo?', options:['Meta','Orto y Para','Solo Orto','Solo Para'], correct:1, explanation:'Los grupos activadores por efecto inductivo o hiperconjugación orientan la sustitución hacia las posiciones orto y para.' },
+        { question:'¿El grupo nitro (-NO₂) es activante o desactivante?', options:['Activante fuerte','Activante débil','Desactivante','Neutro'], correct:2, explanation:'El grupo nitro es un fuerte desactivante porque sustrae densidad electrónica del anillo por efectos inductivo y de resonancia.' },
+        { question:'¿A qué posición orienta el grupo nitro?', options:['Orto','Para','Meta','Orto y Para'], correct:2, explanation:'Los grupos sustractores de electrones desactivan fuertemente las posiciones orto y para, dejando a la posición meta como la menos desestabilizada.' },
+        { question:'¿Por qué los halógenos son una excepción en la orientación?', options:['Porque son activantes fuertes','Porque desactivan por electronegatividad, pero orientan orto/para por resonancia','Porque no reaccionan','Porque son meta-directores'], correct:1, explanation:'Los halógenos sustraen electrones por efecto inductivo (desactivando), pero sus pares libres estabilizan por resonancia el complejo sigma solo si el ataque es orto o para.' },
+        { question:'¿Qué sucede si hay dos sustituyentes que se refuerzan en el m-xileno?', options:['La reacción se bloquea','Dirigen a las mismas posiciones, facilitando la predicción','Se forma una mezcla compleja','Ninguno reacciona'], correct:1, explanation:'Cuando los grupos cooperan y dirigen al mismo carbono, el producto es único y la reacción es muy favorable.' },
+        { question:'¿Qué ocurre en la alquilación de Friedel-Crafts con halogenuros primarios?', options:['No reaccionan nunca','Pueden sufrir reordenamientos del carbocatión','Siempre dan el producto sin cambios','Forman anillos aromáticos'], correct:1, explanation:'Los carbocationes primarios son inestables y tienden a reordenarse (transposición de hidruro o alquilo) a secundarios o terciarios antes de atacar al anillo.' },
+        { question:'¿Cuál es el electrófilo en la sulfonación?', options:['H₂SO₄','SO₃ (o HSO₃⁺)','H₂O','HSO₄⁻'], correct:1, explanation:'El trióxido de azufre (SO₃) es un electrófilo fuerte debido a la carga parcial positiva en el átomo de azufre.' },
+        { question:'¿El anión ciclopentadienilo es aromático?', options:['No, es antiaromático','Sí, tiene 6 electrones π','No, no es cíclico','Sí, tiene 4 electrones π'], correct:1, explanation:'Es cíclico, plano y posee 6 electrones π deslocalizados, cumpliendo la regla de Hückel (4n+2, con n=1).' },
+        { question:'¿El catión ciclopentadienilo es aromático?', options:['Sí, es muy estable','No, es antiaromático con 4 electrones π','Es no aromático','Es neutro'], correct:1, explanation:'Tiene 4 electrones π en un sistema cíclico y plano, cumpliendo la regla 4n, lo que lo hace antiaromático y muy inestable.' },
+        { question:'¿La formación del complejo sigma es endotérmica o exotérmica?', options:['Exotérmica','Endotérmica','Neutra','Depende del halógeno'], correct:1, explanation:'Es endotérmica porque requiere energía para romper la estabilidad aromática del benceno.' },
+        { question:'¿La pérdida del protón para recuperar la aromaticidad es endotérmica o exotérmica?', options:['Endotérmica','Fuertemente exotérmica','Neutra','Lenta'], correct:1, explanation:'Es fuertemente exotérmica porque se recupera la gran estabilidad por resonancia del sistema aromático.' },
+        { question:'¿Qué tipo de hibridación tienen los carbonos del benceno?', options:['sp³','sp²','sp','sp³d'], correct:1, explanation:'Todos los carbonos del benceno tienen hibridación sp², lo que permite la geometría plana y el orbital p no hibridado perpendicular al anillo.' },
+        { question:'¿Cuál es el ángulo de enlace en el benceno?', options:['109.5º','120º','180º','90º'], correct:1, explanation:'Al ser hibridación sp² y geometría trigonal plana, todos los ángulos de enlace son de 120º.' },
+        { question:'¿Cuál es la longitud de enlace C-C en el benceno?', options:['1.54 Å (simple)','1.34 Å (doble)','1.397 Å (intermedia)','1.20 Å'], correct:2, explanation:'Todos los enlaces C-C miden 1.397 Å, un valor intermedio entre un enlace simple y uno doble, debido a la deslocalización electrónica.' },
+        { question:'¿Qué reactivo se usa para la yodación del benceno?', options:['I₂ solo','I₂ en presencia de HNO₃','KI','NaI'], correct:1, explanation:'El yodo es poco reactivo, por lo que se requiere un agente oxidante como el HNO₃ para generar un electrófilo de yodo lo suficientemente fuerte.' },
+        { question:'¿Qué genera el ácido sulfúrico en la nitración del benceno?', options:['Reduce el HNO₃','Protona el HNO₃ para que pierda agua y forme el ion nitronio','Actúa como nucleófilo','No participa'], correct:1, explanation:'El H₂SO₄, siendo un ácido más fuerte, protona al ácido nítrico, facilitando la salida de una molécula de agua y la formación de NO₂⁺.' },
+        { question:'¿Un compuesto con 4n electrones π deslocalizados se considera?', options:['Aromático','Antiaromático','No aromático','Alifático'], correct:1, explanation:'Si es cíclico, plano y conjugado, tener 4n electrones π lo clasifica como antiaromático, caracterizado por su alta inestabilidad.' },
+        { question:'¿La anilina experimenta bromación rápida con o sin catalizador?', options:['Solo con FeBr₃','Sin catalizador, con agua de bromo','Solo a alta temperatura','No reacciona'], correct:1, explanation:'El grupo -NH₂ es un activante tan fuerte que la anilina reacciona instantáneamente con el agua de bromo sin necesidad de catalizador de ácido de Lewis.' },
+        { question:'En la disustitución del p-nitrotolueno, ¿a qué posición dirigen ambos grupos?', options:['A posiciones diferentes','A la misma posición (el metilo orto a sí mismo y el nitro meta a sí mismo)','Ninguno dirige','Al azar'], correct:1, explanation:'Es un caso de cooperación: la posición orto al metilo es simultáneamente la posición meta al grupo nitro, por lo que ambos dirigen al mismo carbono.' }
+    ];
+    let quizSet=[], qIdx=0, qScore=0, qAnswered=false, cycleDone=false, quizLastSet=[];
+    
+    function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+    function overlapCount(sel, old){ const s=new Set(old.map(q=>q.question)); return sel.filter(q=>s.has(q.question)).length; }
+    
+    function startNewCycle(){
+        let sel, tries=0;
+        do { sel=shuffle(quizBank.slice()).slice(0,10); tries++; }
+        while (quizLastSet.length && overlapCount(sel, quizLastSet) > 4 && tries < 30);
+        quizLastSet=sel;
+        quizSet=sel;
+        qIdx=0; qScore=0; qAnswered=false; cycleDone=false;
+        document.getElementById('quiz-result').style.display='none';
+        document.getElementById('quiz-result').classList.remove('show');
+        renderQuestion(); updateQuizHistory();
+    }
+    function renderQuestion(){
+        const q=quizSet[qIdx];
+        document.getElementById('q-progress-text').textContent='Pregunta '+(qIdx+1)+' de 10 • Aciertos: '+qScore;
+        document.getElementById('q-bar').style.width=(qIdx/10*100)+'%';
+        let html='<div class="quiz-container"><div class="quiz-question">'+(qIdx+1)+'. '+q.question+'</div><div class="quiz-options">';
+        q.options.forEach(function(o,i){ html+='<button class="quiz-option" onclick="checkQuiz('+i+', this)">'+o+'</button>'; });
+        html+='</div><div id="quiz-feedback" style="display:none;margin-top:1rem;padding:1rem;border-radius:8px;color:#2c3e50;"></div>';
+        html+='<div style="text-align:center;margin-top:1.2rem;"><button id="btn-next" class="calc-button" style="display:none;" onclick="nextQuestion()">'+(qIdx===9?'📊 Ver resultados':'➡️ Siguiente pregunta')+'</button></div></div>';
+        document.getElementById('quiz-container').innerHTML=html;
+        qAnswered=false;
+    }
+    function checkQuiz(i,btn){
+        if(qAnswered) return; qAnswered=true;
+        const q=quizSet[qIdx];
+        const opts=btn.parentElement.querySelectorAll('.quiz-option');
+        opts.forEach(function(o){ o.disabled=true; });
+        const fb=document.getElementById('quiz-feedback');
+        if(i===q.correct){ btn.classList.add('correct'); qScore++;
+            fb.innerHTML='<span style="color:#2e7d32;font-weight:bold;">✅ ¡Correcto!</span><br>'+q.explanation;
+            fb.style.background='#e8f5e9';
+        } else { btn.classList.add('incorrect'); opts[q.correct].classList.add('correct');
+            fb.innerHTML='<span style="color:#c62828;font-weight:bold;">❌ Incorrecto.</span><br>'+q.explanation;
+            fb.style.background='#ffebee';
+        }
+        fb.style.display='block';
+        document.getElementById('q-progress-text').textContent='Pregunta '+(qIdx+1)+' de 10 • Aciertos: '+qScore;
+        document.getElementById('btn-next').style.display='inline-block';
+    }
+    function nextQuestion(){ if(qIdx<9){ qIdx++; renderQuestion(); } else { finishCycle(); } }
+    function finishCycle(){
+        cycleDone=true;
+        document.getElementById('q-bar').style.width='100%';
+        document.getElementById('quiz-container').innerHTML='';
+        const pct=Math.round(qScore*10);
+        let cycles=parseInt(localStorage.getItem('q10_cycles')||'0',10)+1;
+        const best=Math.max(parseInt(localStorage.getItem('q10_best')||'0',10),pct);
+        const totC=parseInt(localStorage.getItem('q10_totC')||'0',10)+qScore;
+        const totQ=parseInt(localStorage.getItem('q10_totQ')||'0',10)+10;
+        localStorage.setItem('q10_cycles',String(cycles)); localStorage.setItem('q10_best',String(best));
+        localStorage.setItem('q10_totC',String(totC)); localStorage.setItem('q10_totQ',String(totQ));
+        const msg=pct>=80?'🏆 ¡Excelente! Dominas el Capítulo 10.':(pct>=60?'💪 ¡Bien! Repasa los temas fallados en Conceptos y Errores Comunes.':'📚 Necesitas repasar: usa Mapa, Flashcards y Aplicaciones antes del próximo ciclo.');
+        const r=document.getElementById('quiz-result');
+        r.innerHTML='<strong>📊 Resultados del ciclo:</strong> '+qScore+'/10 correctas • <strong style="color:#e94560;">'+pct+'%</strong><br>'+msg+'<br><br>🔄 Pulsa "Reiniciar Quiz" o vuelve a entrar al Quiz para un <strong>nuevo ciclo con preguntas aleatorias</strong>.';
+        r.style.display='block'; r.classList.add('show');
+        document.getElementById('q-progress-text').textContent='Ciclo completado • Aciertos: '+qScore+'/10';
+        updateQuizHistory();
+    }
+    function updateQuizHistory(){
+        const cycles=parseInt(localStorage.getItem('q10_cycles')||'0',10);
+        const best=parseInt(localStorage.getItem('q10_best')||'0',10);
+        const totC=parseInt(localStorage.getItem('q10_totC')||'0',10);
+        const totQ=parseInt(localStorage.getItem('q10_totQ')||'0',10);
+        document.getElementById('q-history').innerHTML='📈 Ciclos: <strong>'+cycles+'</strong> | Mejor: <strong>'+best+'%</strong> | Promedio histórico: <strong>'+(totQ?Math.round(totC/totQ*100):0)+'%</strong>';
+    }
+    
+    // ================= INICIALIZACIÓN =================
+    document.addEventListener('DOMContentLoaded', function(){
+        startNewCycle();
+        fcRenderCard();
+    });
+
+    // ============================================================
+    //  AMPLIAR IMÁGENES AL HACER CLIC
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+        const imagenes = document.querySelectorAll('.img-container img, .molecule-img');
+        imagenes.forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function(e) {
+                window.open(this.src, '_blank');
+            });
+        });
+    });
+</script>
+</body>
+</html>
